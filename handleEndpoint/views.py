@@ -48,6 +48,13 @@ def submit_contact(request):
 		body = f'Name: {name}\nEmail: {email}\n\nMessage:\n{message}'
 		recipient_list = [settings.EMAIL_HOST_USER]
 
+		# Basic guard: ensure sender/recipient are configured
+		if not settings.EMAIL_HOST_USER or not settings.DEFAULT_FROM_EMAIL:
+			logging.error('Email settings missing: EMAIL_HOST_USER=%r DEFAULT_FROM_EMAIL=%r', settings.EMAIL_HOST_USER, settings.DEFAULT_FROM_EMAIL)
+			resp = JsonResponse({'error': 'Email sender not configured'}, status=500)
+			resp['Access-Control-Allow-Origin'] = '*'
+			return resp
+
 		send_mail(subject, body, settings.DEFAULT_FROM_EMAIL, recipient_list, fail_silently=False)
 		resp = JsonResponse({'ok': True})
 		resp['Access-Control-Allow-Origin'] = '*'

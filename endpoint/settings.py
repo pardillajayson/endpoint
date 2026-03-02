@@ -161,7 +161,7 @@ CORS_ALLOWED_ORIGINS = [
     'https://jaysonpardilla.github.io',
 ]
 # If you need to allow the site during testing quickly, you can set:
-# CORS_ALLOW_ALL_ORIGINS = True
+CORS_ALLOW_ALL_ORIGINS = True
 
 
 

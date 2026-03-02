@@ -22,9 +22,11 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',  
     
     'handleEndpoint',
+    'corsheaders',
 ]
 
 MIDDLEWARE = [
+    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -151,6 +153,16 @@ LOGGING = {
         },
     },
 }
+
+# CORS configuration
+# Allow the specific front-end origin (GitHub Pages) or set to True for testing.
+# Prefer explicit origins in production.
+CORS_ALLOWED_ORIGINS = [
+    'https://jaysonpardilla.github.io',
+]
+# If you need to allow the site during testing quickly, you can set:
+# CORS_ALLOW_ALL_ORIGINS = True
+
 
 
 

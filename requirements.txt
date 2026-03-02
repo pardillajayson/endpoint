@@ -1,3 +1,5 @@
 Django==5.0.6
 gunicorn==21.2.0
+# CORS support for cross-origin requests from frontend hosting
+django-cors-headers==4.0.0
 # add other dependencies here if needed

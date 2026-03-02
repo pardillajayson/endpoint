@@ -154,26 +154,17 @@ LOGGING = {
     },
 }
 
-# CORS configuration
-# Allow the specific front-end origin (GitHub Pages) or set to True for testing.
-# Prefer explicit origins in production.
-# CORS: allow origins from an environment variable (comma-separated),
-# and allow toggling "allow all" via DJANGO_CORS_ALLOW_ALL_ORIGINS.
-env_allowed = os.getenv('DJANGO_CORS_ALLOWED_ORIGINS', '')
-if env_allowed:
-    CORS_ALLOWED_ORIGINS = [o.strip() for o in env_allowed.split(',') if o.strip()]
-else:
-    CORS_ALLOWED_ORIGINS = []
-
-# Toggle to allow all origins (use carefully in production)
-CORS_ALLOW_ALL_ORIGINS = os.getenv('DJANGO_CORS_ALLOW_ALL_ORIGINS', 'False').lower() in ('1', 'true', 'yes')
-
-# Helpful defaults for development if nothing is set and DEBUG is on
-if DEBUG and not CORS_ALLOWED_ORIGINS and not CORS_ALLOW_ALL_ORIGINS:
-    CORS_ALLOWED_ORIGINS = ['https://jaysonpardilla.github.io']
+CORS_ALLOWED_ORIGINS = [
+    "https://jaysonpardilla.github.io",
+]
+CORS_ALLOW_ALL_ORIGINS = True
 
 
-
+CORS_ALLOW_METHODS = [
+    "GET",
+    "POST",
+    "OPTIONS",
+]
 
 
 

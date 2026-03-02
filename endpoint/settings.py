@@ -113,9 +113,11 @@ EMAIL_HOST_PASSWORD = os.getenv('DJANGO_EMAIL_HOST_PASSWORD', '')
 DEFAULT_FROM_EMAIL = os.getenv('DJANGO_DEFAULT_FROM_EMAIL', EMAIL_HOST_USER)
 EMAIL_TIMEOUT = int(os.getenv('DJANGO_EMAIL_TIMEOUT', 10))
 
-# For local development/debugging, when DEBUG is enabled print emails to console
-# so we can verify the view is invoked without requiring SMTP credentials.
-if DEBUG:
+# For local development: prefer an explicitly provided backend; only fall back
+# to the console backend when DEBUG is True and no backend was configured
+# via the `DJANGO_EMAIL_BACKEND` environment variable. This prevents DEBUG
+# from overriding an SMTP backend set in production environments.
+if DEBUG and os.getenv('DJANGO_EMAIL_BACKEND') in (None, ''):
     EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 
 # Simple logging to ensure exceptions are visible in container/platform logs

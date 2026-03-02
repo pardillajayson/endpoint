@@ -55,8 +55,14 @@ def submit_contact(request):
 			resp['Access-Control-Allow-Origin'] = '*'
 			return resp
 
-		send_mail(subject, body, settings.DEFAULT_FROM_EMAIL, recipient_list, fail_silently=False)
-		resp = JsonResponse({'ok': True})
+		result = send_mail(subject, body, settings.DEFAULT_FROM_EMAIL, recipient_list, fail_silently=False)
+		logging.info('send_mail returned %s for recipient %r', result, recipient_list)
+		# `result` is the number of successfully delivered messages (1 means sent)
+		if not result:
+			logging.error('send_mail did not send any messages (result=0)')
+			resp = JsonResponse({'error': 'Email not sent'}, status=500)
+		else:
+			resp = JsonResponse({'ok': True, 'email_sent': True})
 		resp['Access-Control-Allow-Origin'] = '*'
 		return resp
 

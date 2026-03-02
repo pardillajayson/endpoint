@@ -105,7 +105,7 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 # Email (Gmail SMTP) - read credentials from environment variables
 EMAIL_BACKEND = os.getenv('DJANGO_EMAIL_BACKEND', 'django.core.mail.backends.smtp.EmailBackend')
-EMAIL_HOST = os.getenv('DJANGO_EMAIL_HOST', 'smtp.gmail.com')
+EMAIL_HOST = os.getenv('DJANGO_EMAIL_HOSTS', 'smtp.gmail.com')
 EMAIL_PORT = int(os.getenv('DJANGO_EMAIL_PORT', 587))
 EMAIL_USE_TLS = os.getenv('DJANGO_EMAIL_USE_TLS', 'True').lower() in ('1', 'true', 'yes')
 EMAIL_HOST_USER = os.getenv('DJANGO_EMAIL_HOST_USER', '')

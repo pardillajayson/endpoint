@@ -4,6 +4,7 @@ from django.http import JsonResponse
 from django.core.mail import send_mail, BadHeaderError
 from django.conf import settings
 import json
+import logging
 
 
 @csrf_exempt
@@ -57,6 +58,7 @@ def submit_contact(request):
 		resp['Access-Control-Allow-Origin'] = '*'
 		return resp
 	except Exception as exc:
-		resp = JsonResponse({'error': str(exc)}, status=500)
+		logging.exception('Unhandled exception in submit_contact')
+		resp = JsonResponse({'error': 'Internal server error'}, status=500)
 		resp['Access-Control-Allow-Origin'] = '*'
 		return resp
